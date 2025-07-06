@@ -8,19 +8,19 @@ export function NewsProvider({ children }) {
   useEffect(() => {
     const localNews = JSON.parse(localStorage.getItem("news")) || [];
 
-    const apiKey = "GgQBJiM3piyqpcGN2fLI1n5HJhWAKwWu";
+    const apiKey = import.meta.env.VITE_NYT_API_KEY;
     const endpoint = "https://api.nytimes.com/svc/topstories/v2/home.json";
 
     fetch(`${endpoint}?api-key=${apiKey}`)
       .then((res) => res.json())
       .then((data) => {
         const apiNews = data.results.map((item) => ({
-          id: item.url,  
+          id: item.url,
           title: item.title,
           category: item.section,
           body: item.abstract,
           date: item.published_date,
-          url: item.url,      
+          url: item.url,
           isLocal: false,
         }));
 
@@ -44,7 +44,6 @@ export function NewsProvider({ children }) {
     });
   };
 
-  // Aquí agregamos la función deleteNews
   const deleteNews = (id) => {
     setNews((prevNews) => {
       const updated = prevNews.filter((item) => item.id !== id);
