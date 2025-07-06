@@ -1,0 +1,199 @@
+@use "sass:color";
+
+$primary-color: #0077cc;
+$background-color: #f5f5f5;
+$text-color: #333;
+$card-bg: #fff;
+$font-stack: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 600px) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media (max-width: 900px) {
+      @content;
+    }
+  }
+}
+
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+  background: $background-color;
+  color: $text-color;
+}
+
+header,
+footer {
+  background: #222;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+
+    a {
+      color: white;
+      text-decoration: none;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    @include responsive(mobile) {
+      flex-direction: column;
+    }
+  }
+}
+
+main {
+  padding: 2rem;
+
+  @include responsive(mobile) {
+    padding: 1rem;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: auto;
+  background: $card-bg;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+
+  input,
+  textarea {
+    font-size: 1rem;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  button {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      background: color.adjust($primary-color, $lightness: -10%);
+    }
+  }
+}
+
+section {
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  article {
+    background: $card-bg;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.08);
+
+    h3 {
+      margin-top: 0;
+      color: $primary-color;
+    }
+
+    p {
+      margin: 0.75rem 0;
+    }
+
+    small {
+      color: #777;
+    }
+  }
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+
+  @include responsive(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+footer {
+  margin-top: 2rem;
+}
+
+.dark-mode {
+  background: #001f3f;
+  color: white;
+
+  header,
+  footer {
+    background: #001a33;
+  }
+
+  input,
+  textarea,
+  select {
+    background: #003366;
+    color: white;
+    border-color: #004080;
+  }
+
+  button {
+    background: #004080;
+    color: white;
+
+    &:hover {
+      background: color.adjust(#004080, $lightness: -10%);
+    }
+  }
+
+  article {
+    background: #00264d;
+    box-shadow: none;
+
+    h3 {
+      color: #ff66cc;
+    }
+
+    p,
+    small {
+      color: white;
+    }
+  }
+
+  a {
+    color: #ff66cc;
+
+    &:hover {
+      color: color.adjust(#ff66cc, $lightness: -15%);
+    }
+  }
+
+  form {
+    background: #00264d;
+    box-shadow: none;
+    color: white;
+
+    h2 {
+      color: #ff66cc;
+    }
+
+    label {
+      color: white;
+    }
+  }
+}
